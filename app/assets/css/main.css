@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+/* ── Design tokens (PRD §8) — Tailwind v4 CSS-first theme ──────────────────
+   Generates utilities like bg-gold, text-rust, font-display, etc. */
+@theme {
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8c97a;
+  --color-deep: #1c0f00;
+  --color-deep-2: #2e1800;
+  --color-rice: #f7f2e8;
+  --color-rice-2: #ede5d4;
+  --color-rust: #8b3a1a;
+  --color-rust-light: #a84820;
+  --color-sage: #5a6b4a;
+
+  --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-deep);
+    background-color: #fff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-deep);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-rust);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  /* Editorial film-grain overlay — adds analog texture to dark sections */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Thin uppercase eyebrow label */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  /* Marquee strip (PRD signature element) */
+  .animate-marquee {
+    animation: marquee 38s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  /* Entrance: fade-rise, toggled by IntersectionObserver via .is-visible */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s var(--ease-out-soft), transform 0.7s var(--ease-out-soft);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Slow cinematic zoom for hero photos */
+@keyframes kenburns {
+  from { transform: scale(1.05); }
+  to { transform: scale(1.13); }
+}
+.kenburns {
+  animation: kenburns 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .kenburns { animation: none !important; transform: none !important; }
+}

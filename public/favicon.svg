@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="SaktiWisata">
+  <rect width="32" height="32" rx="7" fill="#1C0F00" />
+  <g fill="#C9A84C">
+    <path d="M7 27V14h3v-4h3v17H7Z" />
+    <path d="M25 27V14h-3v-4h-3v17h6Z" />
+    <circle cx="16" cy="9" r="1.6" />
+  </g>
+</svg>
