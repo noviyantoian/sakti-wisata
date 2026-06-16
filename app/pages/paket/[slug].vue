@@ -69,10 +69,10 @@ const waQuick = computed(() => {
         <NuxtImg
           :src="pkg.image"
           :alt="pkg.name"
-          width="2560"
-          height="1440"
+          width="1920"
+          height="1080"
           format="webp"
-          quality="88"
+          quality="74"
           class="kenburns h-full w-full object-cover object-center"
         />
       </div>

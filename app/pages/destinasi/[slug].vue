@@ -51,10 +51,10 @@ if (dest.value) {
         <NuxtImg
           :src="dest.image"
           :alt="`Pemandangan ${dest.name}, Bali`"
-          width="2560"
-          height="1440"
+          width="1920"
+          height="1080"
           format="webp"
-          quality="88"
+          quality="74"
           preload
           fetchpriority="high"
           class="kenburns h-full w-full object-cover object-center"

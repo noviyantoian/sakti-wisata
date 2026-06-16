@@ -53,10 +53,10 @@ useSeoMeta({
         <NuxtImg
           src="/images/hero/hero-main.jpg"
           alt="Gerbang pura dan terasering sawah Ubud saat matahari terbit"
-          width="2560"
-          height="1440"
+          width="1920"
+          height="1080"
           format="webp"
-          quality="88"
+          quality="74"
           preload
           loading="eager"
           fetchpriority="high"

@@ -21,19 +21,33 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      'Cormorant Garamond': { wght: [400, 600, 700], ital: [400, 600] },
+      'Cormorant Garamond': { wght: [400, 600, 700], ital: [400] },
       'DM Sans': [300, 400, 500, 600],
     },
     display: 'swap',
-    preload: true,
+    subsets: ['latin'],
+    // Don't preload every weight — that competes with the LCP hero image.
+    preload: false,
     download: true,
   },
 
   image: {
-    provider: 'none',
-    format: ['webp', 'jpg'],
-    quality: 86,
+    // IPX runs at BUILD time (during prerender) → optimized static WebP, so there
+    // is no runtime sharp/IPX RAM cost on the server.
+    format: ['webp'],
+    quality: 72,
     screens: { xs: 320, sm: 640, md: 768, lg: 1024, xl: 1280, xxl: 1536 },
+  },
+
+  // Prerender every page to static HTML at build time → fast FCP/TTFB and minimal
+  // runtime RAM (no per-request SSR render, no runtime image processing).
+  routeRules: {
+    '/**': { prerender: true },
+  },
+
+  nitro: {
+    prerender: { crawlLinks: true, failOnError: false },
+    compressPublicAssets: { gzip: true, brotli: true },
   },
 
   // @nuxtjs/seo umbrella — site identity feeds sitemap, robots, og, schema-org
